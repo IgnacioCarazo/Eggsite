@@ -41,25 +41,37 @@ export default function App(): ReactElement {
         <WindowHeader className='window-title'>
           <span>eggs.exe</span>
           <Button>
-            <span className='close-icon' />
+            <span className='close-icon'>X</span>
+            
+           
           </Button>
         </WindowHeader>
-        <Toolbar>
-          <Button variant='menu' size='sm'>
-            File
-          </Button>
-          <Button variant='menu' size='sm'>
-            Edit
-          </Button>
-          <Button variant='menu' size='sm' disabled>
-            Save
-          </Button>
-        </Toolbar>
-        <WindowContent>
+        
+        <WindowContent className='window-content'>
           <p>
-            eggs eggs eggs!
+            Eggabits are a collection of 2009 64x64px Ordinal inscriptions that have been left on the Bitcoin blockchain by Satoshegg
+          </p>
+          <p>
+            They have no utility. No shitcoin. No Discord. CCO.
+          </p>
+          <p>
+            Just art. Just egg
+          </p>
+          <p>
+           Do you wish to continue?
           </p>
         </WindowContent>
+        <div className='window-buttons'>
+          <Button style={{width: "100px"}} primary >
+            Yes
+          </Button>
+          <Button style={{width: "100px"}}  primary >
+            No
+          </Button>
+          <Button style={{width: "100px"}}  primary >
+            Cancel
+          </Button>
+        </div>
       </Window>
       {/* <AppBar>
         <Toolbar style={{ justifyContent: 'space-between'}}>

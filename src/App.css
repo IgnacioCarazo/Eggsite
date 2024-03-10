@@ -18,19 +18,32 @@
   height: 16px;
   margin-left: -1px;
   margin-top: -1px;
-  transform: rotateZ(45deg);
   position: relative;
   
 }
 .window {
-  
   width: 700px;
   min-height: 200px;
-  max-height: 300px;
-
+  max-height: 400px;
 }
 .window:nth-child(2) {
   margin: 2rem;
+}
+.window-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px
+}
+.window-buttons {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding-bottom: 15px;
+}
+.button {
+ width: 30px;
 }
 .footer {
   display: block;
