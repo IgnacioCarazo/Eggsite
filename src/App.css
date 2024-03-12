@@ -7,22 +7,54 @@
   width: 100%;
   position: fixed;
 }
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #6c6c6c;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+}
 .window-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.close-icon {
+
+.close {
   display: inline-block;
   width: 16px;
   height: 16px;
   margin-left: -1px;
   margin-top: -1px;
   position: relative;
-  
 }
+.close:before, .close:after{
+  content:'';
+  position: absolute;
+}
+.close:before {
+  height: 100%;
+  width: 7px;
+  left: 50%;
+  transform: rotate(-45deg);
+  bottom: 15%;
+  left: 35%;
+  border-left: 3px solid black;
+}
+.close:after {
+  height: 100%;
+  width: 7px;
+  border-left: 3px solid black;
+  transform: rotate(45deg);
+  top: 15%;
+  left: 35%;
+}
+
+
 .window {
-  width: 700px;
+  width: 800px;
   min-height: 200px;
   max-height: 400px;
 }
@@ -56,4 +88,10 @@
 .app-bar {
   position: absolute;
   bottom: 0
+}
+.clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
 }
