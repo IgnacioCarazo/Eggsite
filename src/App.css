@@ -90,7 +90,6 @@
   bottom: 0
 }
 .clock {
-  display: flex;
   align-items: center;
   justify-content: center;
   width: 100px;

@@ -119,6 +119,7 @@ export default function App(): ReactElement {
               <Frame
                 variant='well'
                 className='clock'
+                style={{display: "flex"}}
               >
                 {ctime}
               </Frame>
