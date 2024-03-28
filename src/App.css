@@ -52,6 +52,17 @@
   left: 35%;
 }
 
+.start-item {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 15px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 25px;
+  right: 0;
+}
 
 .window {
   width: 800px;
@@ -93,4 +104,30 @@
   align-items: center;
   justify-content: center;
   width: 100px;
+  height: 100%;
+}
+
+.art-window {
+  width: 800px;
+  min-height: 200px;
+  max-height: 800px;
+}
+
+.art-content{
+  display: flex;
+  height: 100%;
+  width: 80%;
+  margin-left: 10%;
+  justify-content: space-between;
+}
+
+.art-image {
+  height: 400px;
+  width: 400px;
+}
+
+.img-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
