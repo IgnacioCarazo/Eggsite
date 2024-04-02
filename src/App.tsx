@@ -176,7 +176,13 @@ export default function App(): ReactElement {
               <Window className="art-window">
                 <WindowHeader className="window-title">
                   <span>art</span>
-                  <Button onClick={() => setArtWindow(!art)} active={art}>
+                  <Button
+                    onClick={() => {
+                      setArtWindow(!art);
+                      setImageCounter(1);
+                    }}
+                    active={art}
+                  >
                     <span className="close" />
                   </Button>
                 </WindowHeader>
