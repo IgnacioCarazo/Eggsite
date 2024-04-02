@@ -30,8 +30,9 @@
   margin-top: -1px;
   position: relative;
 }
-.close:before, .close:after{
-  content:'';
+.close:before,
+.close:after {
+  content: "";
   position: absolute;
 }
 .close:before {
@@ -75,7 +76,7 @@
 .window-content {
   display: flex;
   flex-direction: column;
-  gap: 25px
+  gap: 25px;
 }
 .window-buttons {
   display: flex;
@@ -86,7 +87,7 @@
   padding-bottom: 15px;
 }
 .button {
- width: 30px;
+  width: 30px;
 }
 .footer {
   display: block;
@@ -98,7 +99,7 @@
 
 .app-bar {
   position: absolute;
-  bottom: 0
+  bottom: 0;
 }
 .clock {
   align-items: center;
@@ -113,7 +114,7 @@
   max-height: 800px;
 }
 
-.art-content{
+.art-content {
   display: flex;
   height: 100%;
   width: 80%;
@@ -130,4 +131,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.tab {
+  display: "flex";
+  justify-content: "flex-start";
+  gap: "20px";
+  width: "200px";
 }

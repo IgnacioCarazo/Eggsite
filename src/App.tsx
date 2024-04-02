@@ -21,6 +21,10 @@ import {
 import original from "react95/dist/themes/original";
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
+import art_icon from "../src/assets/images/about-icon.png";
+import about_icon from "../src/assets/images/art-icon.png";
+import shutdown_icon from "../src/assets/images/shutdown-icon.png";
+import startSound from "../src/assets/audio/start.mp3";
 
 import "./App.css";
 
@@ -44,10 +48,15 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 export default function App(): ReactElement {
-  const [linksWindow, setLinksWindow] = useState(false);
-  const [counter, setCounterWindow] = useState(false);
+  const [currentWindow, setCurrentWindow] = useState(1);
+  const [aboutWindow, setAboutWindow] = useState(true);
   const [art, setArtWindow] = useState(false);
-  const [percent, setPercent] = useState(0);
+  const [start, setStart] = useState(
+    sessionStorage.getItem("start") === "true" ? true : false
+  );
+  const [percent, setPercent] = useState(
+    Number(sessionStorage.getItem("percent")) || 0
+  );
   const [open, setOpen] = useState(false);
   const [imageCounter, setImageCounter] = useState(1); // Assuming initial counter value is 1
 
@@ -67,55 +76,60 @@ export default function App(): ReactElement {
   setInterval(UpdateTime);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setPercent((previousPercent) => {
-        if (previousPercent === 100) {
-        }
-        const diff = Math.random() * 10;
-        return Math.min(previousPercent + diff, 100);
-      });
-    }, 500);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+    if (start && percent === 0) {
+      const timer = setInterval(() => {
+        setPercent((previousPercent) => {
+          if (previousPercent === 100) {
+            clearInterval(timer); // Stop the timer when percent reaches 100
+          }
+          const diff = Math.random() * 10;
+          return Math.min(previousPercent + diff, 100);
+        });
+      }, 400);
 
-  // useEffect(() => {
-  //   const audio = new Audio(soundFile); // Create a new Audio object
-  //   audio.play(); // Play the audio
+      // Play audio only once when start becomes true
+      const audio = new Audio(startSound);
+      audio.volume = 0.5;
+      audio.play();
 
-  //   const handleAudioEnded = () => {
-  //     // When the audio ends, pause it and reset its playback position
-  //     audio.pause();
-  //     audio.currentTime = 0;
-  //   };
+      const handleAudioEnded = () => {
+        // When the audio ends, pause it and reset its playback position
+        audio.pause();
+        audio.currentTime = 0;
+      };
 
-  //   // Listen for the 'ended' event on the audio element
-  //   audio.addEventListener('ended', handleAudioEnded);
+      // Listen for the 'ended' event on the audio element
+      audio.addEventListener("ended", handleAudioEnded);
 
-  //   // Clean up function to remove the event listener when the component unmounts
-  //   return () => {
-  //     audio.removeEventListener('ended', handleAudioEnded);
-  //   };
-  // }, []);
+      // Save start and percent states to sessionStorage
+      sessionStorage.setItem("start", String(start));
+      sessionStorage.setItem("percent", String(100));
 
+      // Clean up function to remove the event listener when the component unmounts
+      return () => {
+        console.log(123);
+        audio.removeEventListener("ended", handleAudioEnded);
+      };
+    }
+  }, [start, percent, startSound]);
   return (
     <div className={percent === 100 ? "background" : "loading"}>
       <GlobalStyles />
       <ThemeProvider theme={original}>
-        {percent !== 100 && (
-          <ProgressBar style={{ width: "80%" }} value={Math.floor(percent)} />
+        {!start && <Button onClick={() => setStart(true)}>Start</Button>}
+        {start && percent !== 100 && (
+          <ProgressBar style={{ width: "60%" }} value={Math.floor(percent)} />
         )}
 
         {percent === 100 && (
           <div>
-            {!linksWindow && (
+            {aboutWindow && currentWindow === 1 && (
               <Window className="window">
                 <WindowHeader className="window-title">
                   <span>eggs.exe</span>
                   <Button
-                    onClick={() => setLinksWindow(!linksWindow)}
-                    active={linksWindow}
+                    onClick={() => setAboutWindow(!aboutWindow)}
+                    active={aboutWindow}
                   >
                     <span className="close" />
                   </Button>
@@ -140,7 +154,7 @@ export default function App(): ReactElement {
                     <a href="https://google.com">No</a>
                   </Button>
                   <Button
-                    onClick={() => setLinksWindow(!linksWindow)}
+                    onClick={() => setAboutWindow(!aboutWindow)}
                     style={{ width: "100px" }}
                     primary
                   >
@@ -149,7 +163,7 @@ export default function App(): ReactElement {
                 </div>
               </Window>
             )}
-            {!art && (
+            {art && currentWindow === 2 && (
               <Window className="art-window">
                 <WindowHeader className="window-title">
                   <span>art</span>
@@ -181,17 +195,65 @@ export default function App(): ReactElement {
 
             <AppBar style={{ bottom: 0, top: "auto" }}>
               <Toolbar style={{ justifyContent: "space-between" }}>
-                <Button
-                  onClick={() => setOpen(!open)}
-                  style={{ fontWeight: "bold" }}
-                >
-                  <img
-                    src="/startIcon.png"
-                    alt="StartIcon"
-                    style={{ height: "32px", width: "32px" }}
-                  />
-                  Start
-                </Button>
+                <div style={{ display: "flex", gap: "5px" }}>
+                  <Button
+                    onClick={() => setOpen(!open)}
+                    style={{ fontWeight: "bold" }}
+                  >
+                    <img
+                      src="/startIcon.png"
+                      alt="StartIcon"
+                      style={{ height: "32px", width: "32px" }}
+                    />
+                    Start
+                  </Button>
+                  {art && (
+                    <Button
+                      onClick={() => {
+                        setCurrentWindow(2);
+                      }}
+                      active={currentWindow == 2 ? true : false}
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        gap: "20px",
+                        width: "200px",
+                      }}
+                    >
+                      <img
+                        src={art_icon}
+                        alt="StartIcon"
+                        style={{
+                          display: "flex",
+                          height: "24px",
+                          width: "20px",
+                        }}
+                      />
+                      Art
+                    </Button>
+                  )}
+                  {aboutWindow && (
+                    <Button
+                      onClick={() => {
+                        setCurrentWindow(1);
+                      }}
+                      active={currentWindow == 1 ? true : false}
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        gap: "20px",
+                        width: "200px",
+                      }}
+                    >
+                      <img
+                        src={about_icon}
+                        alt="StartIcon"
+                        style={{ height: "24px", width: "20px" }}
+                      />
+                      About
+                    </Button>
+                  )}
+                </div>
                 {open && (
                   <MenuList
                     style={{
@@ -202,11 +264,16 @@ export default function App(): ReactElement {
                     }}
                     onClick={() => setOpen(false)}
                   >
-                    <MenuListItem onClick={() => setLinksWindow(!linksWindow)}>
+                    <MenuListItem
+                      onClick={() => {
+                        setAboutWindow(true);
+                        setCurrentWindow(1);
+                      }}
+                    >
                       <div className="start-item">
                         <img
-                          src="/icon_egg5.png"
-                          alt="Yolk"
+                          src={about_icon}
+                          alt="About Icon"
                           style={{
                             height: "24px",
                             width: "20px",
@@ -216,11 +283,16 @@ export default function App(): ReactElement {
                         About
                       </div>
                     </MenuListItem>
-                    <MenuListItem onClick={() => setArtWindow(!art)}>
+                    <MenuListItem
+                      onClick={() => {
+                        setArtWindow(true);
+                        setCurrentWindow(2);
+                      }}
+                    >
                       <div className="start-item">
                         <img
-                          src="/icon_egg5.png"
-                          alt="Baller"
+                          src={art_icon}
+                          alt="Art"
                           style={{
                             height: "24px",
                             width: "20px",
@@ -234,7 +306,7 @@ export default function App(): ReactElement {
                     <MenuListItem disabled>
                       <div className="start-item">
                         <img
-                          src="/icon_egg5.png"
+                          src={shutdown_icon}
                           alt="Dragon"
                           style={{
                             height: "24px",
