@@ -24,6 +24,7 @@ import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
 import art_icon from "../src/assets/images/about-icon.png";
 import about_icon from "../src/assets/images/art-icon.png";
 import shutdown_icon from "../src/assets/images/shutdown-icon.png";
+import start_icon from "../src/assets/images/start-icon.png";
 import startSound from "../src/assets/audio/start.mp3";
 
 import "./App.css";
@@ -46,6 +47,14 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'ms_sans_serif';
   }
 `;
+
+const importedImages: string[] = [];
+
+// Loop through image numbers from 1 to 50
+for (let i = 1; i <= 50; i++) {
+  // Import each image dynamically and push it into the array
+  importedImages.push(require(`../src/assets/art-display-images/${i}.png`));
+}
 
 export default function App(): ReactElement {
   const [currentWindow, setCurrentWindow] = useState(1);
@@ -184,8 +193,8 @@ export default function App(): ReactElement {
                     <ScrollView id="cutout" className="img-holder">
                       <img
                         className="art-image"
-                        src={`/images/${imageCounter}.png`}
-                        alt={`Image ${imageCounter}`}
+                        src={importedImages[imageCounter - 1]}
+                        alt={`Egg ${imageCounter}`}
                       />
                     </ScrollView>
                   </div>
@@ -201,7 +210,7 @@ export default function App(): ReactElement {
                     style={{ fontWeight: "bold" }}
                   >
                     <img
-                      src="/startIcon.png"
+                      src={start_icon}
                       alt="StartIcon"
                       style={{ height: "32px", width: "32px" }}
                     />
