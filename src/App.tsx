@@ -265,11 +265,19 @@ export default function App(): ReactElement {
                       <img
                         src={art_icon}
                         alt="ArtIcon"
-                        style={{
-                          display: "flex",
-                          height: "24px",
-                          width: "20px",
-                        }}
+                        style={
+                          window.innerWidth >= 600
+                            ? {
+                                height: "24px",
+                                width: "20px",
+                                display: "flex",
+                              }
+                            : {
+                                height: "20px",
+                                width: "16px",
+                                display: "flex",
+                              }
+                        }
                       />
                       Art
                     </Button>
@@ -280,12 +288,38 @@ export default function App(): ReactElement {
                         setCurrentWindow(1);
                       }}
                       active={currentWindow == 1 ? true : false}
-                      className="tab"
+                      style={
+                        window.innerWidth >= 600
+                          ? {
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              gap: "20px",
+                              width: "200px",
+                            }
+                          : {
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              gap: "2px",
+                              width: "80px",
+                            }
+                      }
                     >
                       <img
                         src={about_icon}
                         alt="StartIcon"
-                        style={{ height: "24px", width: "20px" }}
+                        style={
+                          window.innerWidth >= 600
+                            ? {
+                                height: "24px",
+                                width: "20px",
+                                display: "flex",
+                              }
+                            : {
+                                height: "20px",
+                                width: "16px",
+                                display: "flex",
+                              }
+                        }
                       />
                       About
                     </Button>
