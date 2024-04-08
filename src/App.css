@@ -142,6 +142,7 @@
     width: 300px;
     min-height: 200px;
     max-height: 500px;
+    bottom: 20px;
   }
 
   .art-window {
@@ -153,8 +154,9 @@
   .art-content {
     display: flex;
     height: 100%;
-    width: 95%;
+    width: 100%;
     gap: 10px;
+    margin-left: 0px;
     justify-content: space-between;
   }
 
