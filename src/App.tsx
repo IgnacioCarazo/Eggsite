@@ -136,10 +136,7 @@ export default function App(): ReactElement {
               <Window className="window">
                 <WindowHeader className="window-title">
                   <span>eggs.exe</span>
-                  <Button
-                    onClick={() => setAboutWindow(!aboutWindow)}
-                    active={aboutWindow}
-                  >
+                  <Button onClick={() => setAboutWindow(!aboutWindow)}>
                     <span className="close" />
                   </Button>
                 </WindowHeader>
@@ -181,7 +178,6 @@ export default function App(): ReactElement {
                       setArtWindow(!art);
                       setImageCounter(1);
                     }}
-                    active={art}
                   >
                     <span className="close" />
                   </Button>
@@ -213,14 +209,36 @@ export default function App(): ReactElement {
                 <div style={{ display: "flex", gap: "5px" }}>
                   <Button
                     onClick={() => setOpen(!open)}
-                    style={{ fontWeight: "bold" }}
+                    style={
+                      window.innerWidth >= 600
+                        ? {
+                            fontWeight: "bold",
+                          }
+                        : {
+                            width: "70px",
+                            fontWeight: "bold",
+                          }
+                    }
                   >
-                    <img
-                      src={start_icon}
-                      alt="StartIcon"
-                      style={{ height: "32px", width: "32px" }}
-                    />
-                    Start
+                    {window.innerWidth >= 600 ? (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img
+                          src={start_icon}
+                          alt="StartIcon"
+                          style={{ height: "32px", width: "32px" }}
+                        />
+                        Start
+                      </div>
+                    ) : (
+                      <div>Start</div>
+                    )}
                   </Button>
                   {art && (
                     <Button
@@ -228,16 +246,25 @@ export default function App(): ReactElement {
                         setCurrentWindow(2);
                       }}
                       active={currentWindow == 2 ? true : false}
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        gap: "20px",
-                        width: "200px",
-                      }}
+                      style={
+                        window.innerWidth >= 600
+                          ? {
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              gap: "20px",
+                              width: "200px",
+                            }
+                          : {
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              gap: "2px",
+                              width: "60px",
+                            }
+                      }
                     >
                       <img
                         src={art_icon}
-                        alt="StartIcon"
+                        alt="ArtIcon"
                         style={{
                           display: "flex",
                           height: "24px",
@@ -253,12 +280,7 @@ export default function App(): ReactElement {
                         setCurrentWindow(1);
                       }}
                       active={currentWindow == 1 ? true : false}
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        gap: "20px",
-                        width: "200px",
-                      }}
+                      className="tab"
                     >
                       <img
                         src={about_icon}
@@ -271,12 +293,21 @@ export default function App(): ReactElement {
                 </div>
                 {open && (
                   <MenuList
-                    style={{
-                      position: "absolute",
-                      width: "200px",
-                      left: "0",
-                      bottom: "100%",
-                    }}
+                    style={
+                      window.innerWidth >= 600
+                        ? {
+                            position: "absolute",
+                            width: "200px",
+                            left: "0",
+                            bottom: "100%",
+                          }
+                        : {
+                            position: "absolute",
+                            width: "120px",
+                            left: "0",
+                            bottom: "100%",
+                          }
+                    }
                     onClick={() => setOpen(false)}
                   >
                     <MenuListItem
@@ -337,7 +368,11 @@ export default function App(): ReactElement {
                 <Frame
                   variant="well"
                   className="clock"
-                  style={{ display: "flex", height: "36px" }}
+                  style={
+                    window.innerWidth >= 600
+                      ? { display: "flex", height: "36px" }
+                      : { display: "flex", height: "36px", width: "80px" }
+                  }
                 >
                   {ctime}
                 </Frame>

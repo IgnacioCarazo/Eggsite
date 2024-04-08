@@ -26,8 +26,6 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  margin-left: -1px;
-  margin-top: -1px;
   position: relative;
 }
 .close:before,
@@ -40,8 +38,8 @@
   width: 7px;
   left: 50%;
   transform: rotate(-45deg);
-  bottom: 15%;
-  left: 35%;
+  bottom: 16%;
+  left: 34%;
   border-left: 3px solid black;
 }
 .close:after {
@@ -137,4 +135,43 @@
   justify-content: "flex-start";
   gap: "20px";
   width: "200px";
+}
+
+@media only screen and (max-width: 600px) {
+  .window {
+    width: 300px;
+    min-height: 200px;
+    max-height: 500px;
+  }
+
+  .art-window {
+    width: 300px;
+    min-height: 200px;
+    max-height: 500px;
+  }
+
+  .art-content {
+    display: flex;
+    height: 100%;
+    width: 95%;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  .art-image {
+    height: 150px;
+    width: 150px;
+  }
+
+  .start-item {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 0;
+  }
 }
